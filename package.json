@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "cli:dev": "ts-node src/cli/index.ts",
-    "cli:start": "node dist/bin/devon.js"
+    "cli:start": "node dist/bin/devon.js",
+    "cli:build": "tsc"
   },
   "dependencies": {
     "commander": "^14.0.2",
