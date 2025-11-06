@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-import "./src/app/cli/index.js";
+import "../src/cli/index.js";
