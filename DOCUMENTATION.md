@@ -8,22 +8,36 @@ The main functionality of this program.
 
 I am dividing the fields to be included in the UI to the following:
 
-1. Port Number
-2. Protocol (TCP or UDP)
-3. PID
-4. ProcessName / Command (node, python, postgres)
-5. Status
-6. PATH
-7. Address
+- Port Number
+- Protocol (TCP or UDP)
+- PID
+- ProcessName / Command (node, python, postgres)
+- Status
+- PATH
+- Address
 
 ###### Processes
 
 The same division for Processes.
 
-1. PID
-2. Name / Command (human recognition)
-3. CPU Percentage
-4. memoryMB or memoryPercent
-5. Uptime
-6. parentPID
-7. PATH
+- PID
+- Name / Command (human recognition)
+- CPU Percentage
+- memoryMB or memoryPercent
+- Uptime
+- parentPID
+- PATH
+
+### Architecture
+
+The refresh feature runs as such:
+
+1. Frontend (Refresh button)
+2. API
+3. scanner.ts
+4. ports.ts + processes.ts
+5. combinator.ts
+6. Results.JSON
+7. Frontend renders updated UI
+
+This ensures security, isolation, maintainability, deployment consistency, and professional boundaries are met.
