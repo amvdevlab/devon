@@ -1,7 +1,3 @@
-/**
- * Types for the core functionality of the program
- */
-
 export type PortInfo = {
   port: number;
   protocol: string;
@@ -40,4 +36,22 @@ export type ChangeSummary = {
   added: number;
   deleted: number;
   untracked: number;
+};
+
+export type ScanResult = {
+  ports: PortInfo[];
+  processes: ProcessInfo[];
+  github?: GitHubInfo;
+  services: ServiceInfo[];
+  timestamp: number;
+};
+
+export type ServiceInfo = {
+  pid: number;
+  name?: string;
+  path?: string;
+  cpuPercent?: number;
+  memoryMB?: number;
+  uptimeSeconds?: number;
+  ports: PortInfo[];
 };

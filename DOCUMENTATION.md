@@ -41,3 +41,10 @@ The refresh feature runs as such:
 7. Frontend renders updated UI
 
 This ensures security, isolation, maintainability, deployment consistency, and professional boundaries are met.
+
+Information on the core/ process:
+
+    ports.ts → PortInfo[]
+    processes.ts → ProcessInfo[]
+    combinator.ts → ServiceInfo[]
+    scanner.ts → ScanResult{ ports, processes, services }
