@@ -3,6 +3,4 @@
 
 **The developer's environment monitoring system**
 
-### Instructions
-
-    IN DEV
+    [IN DEV]  •  Coming Soon!
