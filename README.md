@@ -1,4 +1,3 @@
-![devon Logo](./assets/devonlogo.png)
 
 # devon
 
