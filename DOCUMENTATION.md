@@ -48,3 +48,19 @@ Information on the core/ process:
     processes.ts → ProcessInfo[]
     combinator.ts → ServiceInfo[]
     scanner.ts → ScanResult{ ports, processes, services }
+
+###### Building ports.ts
+
+**1. Shell out:** call the OS command that lists open ports.  
+**2. Parse:** extract raw values from the text output.  
+**3. Normalize:** convert raw fields into exact PortInfo shape.  
+**4. Return:** output an array of PortInfo entries.
+
+File structure:
+
+A. OS detection  
+B. Command selection  
+C. Raw execution  
+D. Parsing  
+E. Normalization  
+F. Return function
