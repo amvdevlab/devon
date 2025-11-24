@@ -1,9 +1,6 @@
-![devon Logo](./assets/devonlogo.png)
 
 # devon
 
-**The development environment monitoring system**
+**The developer's environment monitoring system**
 
-### Instructions
-
-    devon start
+    [IN DEV]  •  Coming Soon!
