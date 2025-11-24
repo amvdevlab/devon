@@ -17,6 +17,11 @@ export async function getPorts() {
   }
 
   // 2. Choose command
+  let command;
+  if (os === "mac") command = "lsof -i -P -n";
+  if (os === "windows") command = "netstat -ano";
+  if (os === "linux") command = "ss -tuln";
+
   // 3. Execute
   // 4. Parse
   // 5. Normalize
