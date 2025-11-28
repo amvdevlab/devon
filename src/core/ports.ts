@@ -19,10 +19,40 @@ const commands: Record<"mac" | "windows" | "linux", string> = {
   linux: "ss -tuln",
 };
 
+type ParsedRow = {
+  pid?: string;
+  protocol?: string;
+  address?: string;
+  port?: string;
+  status?: string;
+  processName?: string;
+};
+
+function parseRaw(raw: string, os: "mac" | "windows" | "linux"): ParsedRow[] {
+  if (os === "mac") return parseMac(raw);
+  if (os === "windows") return parseWindows(raw);
+  return parseLinux(raw);
+}
+
+function parseMac(raw: string): ParsedRow[] {
+  return [];
+}
+
+function parseWindows(raw: string): ParsedRow[] {
+  return [];
+}
+
+function parseLinux(raw: string): ParsedRow[] {
+  return [];
+}
+
+function normalize(rows: ParsedRow[]): PortInfo[] {
+  return [];
+}
+
 export async function getPorts() {
   // 1. Detect OS
   const os = detectOS();
-
   if (os === null) {
     console.log("Port scanning unsupported for this platform.");
     return [];
@@ -40,7 +70,13 @@ export async function getPorts() {
     console.log("Failed to execute port command.");
     return [];
   }
+
   // 4. Parse
+  const rows = parseRaw(raw, os);
+
   // 5. Normalize
+  const ports = normalize(rows);
+
   // 6. Return PortInfo[]
+  return ports;
 }
