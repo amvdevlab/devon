@@ -26,6 +26,7 @@ type ParsedRow = {
   port?: string;
   status?: string;
   processName?: string;
+  path?: string;
 };
 
 function parseRaw(raw: string, os: "mac" | "windows" | "linux"): ParsedRow[] {
@@ -35,7 +36,40 @@ function parseRaw(raw: string, os: "mac" | "windows" | "linux"): ParsedRow[] {
 }
 
 function parseMac(raw: string): ParsedRow[] {
-  return [];
+  const rows: ParsedRow[] = [];
+  const lines = raw.split("\n");
+
+  // skip header line
+  for (let i = 1; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line) continue;
+
+    // split each line by whitespace
+    const parts = line.split(/\s+/);
+
+    if (parts.length < 9) continue;
+
+    const processName = parts[0];
+    const pid = parts[1];
+    const protocol = parts[7];
+    const addressPort = parts[8] || ""; // TCP or UDP
+    const status = parts[9] ? parts[9].replace(/[()]/g, "") : ""; // remove parentheses
+
+    // extract address and port from format "127.0.0.1:3000" format
+    const lastColon = addressPort.lastIndexOf(":");
+    const address = lastColon !== -1 ? addressPort.slice(0, lastColon) : "";
+    const port = lastColon !== -1 ? addressPort.slice(lastColon + 1) : "";
+
+    rows.push({
+      pid,
+      protocol,
+      address,
+      port,
+      status,
+      processName,
+    });
+  }
+  return rows;
 }
 
 function parseWindows(raw: string): ParsedRow[] {
@@ -49,6 +83,10 @@ function parseLinux(raw: string): ParsedRow[] {
 function normalize(rows: ParsedRow[]): PortInfo[] {
   return [];
 }
+
+// -----------------------------
+// Export function for ports.ts
+// -----------------------------
 
 export async function getPorts() {
   // 1. Detect OS
