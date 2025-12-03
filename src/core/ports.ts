@@ -73,11 +73,67 @@ function parseMac(raw: string): ParsedRow[] {
 }
 
 function parseWindows(raw: string): ParsedRow[] {
-  return [];
+  const rows: ParsedRow[] = [];
+  const lines = raw.split("\n");
+
+  // skip header lines (netstat has multiple header lines)
+  for (let i = 4; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line) continue;
+
+    const parts = line.split(/\s+/);
+    if (parts.length < 5) continue;
+
+    const protocol = parts[0]; // TCP, UDP
+    const localAddressPort = parts[1] || "";
+    const status = parts[3]; // LISTENING, ESTABLISHED, etc.
+    const pid = parts[4];
+
+    const lastColon = localAddressPort.lastIndexOf(":");
+    const address =
+      lastColon !== -1 ? localAddressPort.slice(0, lastColon) : "";
+    const port = lastColon !== -1 ? localAddressPort.slice(lastColon + 1) : "";
+
+    rows.push({
+      pid,
+      protocol,
+      address,
+      port,
+      status,
+    });
+  }
+  return rows;
 }
 
 function parseLinux(raw: string): ParsedRow[] {
-  return [];
+  const rows: ParsedRow[] = [];
+  const lines = raw.split("\n");
+
+  //skip header line
+  for (let i = 1; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line) continue;
+
+    const parts = line.split(/\s+/);
+    if (parts.length < 5) continue;
+
+    const protocol = parts[0];
+    const status = parts[1];
+    const localAddressPort = parts[4] || "";
+
+    const lastColon = localAddressPort.lastIndexOf(":");
+    const address =
+      lastColon !== -1 ? localAddressPort.slice(0, lastColon) : "";
+    const port = lastColon !== -1 ? localAddressPort.slice(lastColon + 1) : "";
+
+    rows.push({
+      protocol,
+      address,
+      port,
+      status,
+    });
+  }
+  return rows;
 }
 
 function normalize(rows: ParsedRow[]): PortInfo[] {
