@@ -3,7 +3,7 @@
 **The developer's environment monitoring system**
 > [!IMPORTANT]
 >```
-> [DEVELOPMENT HIBERNATED]  •  ⏸️ Decemeber 2025
+> [DEVELOPMENT HIBERNATED]  •  ⏸️ December 2025
 >```
 
 ## Project Introduction and Intention
